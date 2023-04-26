@@ -1,3 +1,4 @@
+//Daily challenge: [Week 3 day 3]
 // using 1 loop
 let str = ['*', '**', '***', '****', '*****', '******'];
 let output = '';

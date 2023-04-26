@@ -2,9 +2,7 @@
 let x = 5;
 let y = 2;
 
-let diff = x - y;
-
-if (diff < 0) {
+if (y > x) {
     console.log(y, 'is the biggest number')
 } else {
     console.log(x, 'is the biggest number')
