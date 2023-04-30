@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 : TipPercents</title>
+</head>
+
+<body>
+    <script>
+        const calculateTipPercent = () => {
+            let billAmount = prompt('What is the bill amount?');
+            billAmount = parseFloat(billAmount);
+            console.warn(billAmount, typeof billAmount);
+            let tipPercent = 0;
+            let tip = 0;
+            let totalAmount = 0;
+
+            switch(true) {
+                // If the bill is less than $50, tipPercent 20%.
+                case (billAmount < 50):
+                    tipPercent = .2;
+                    break;
+                // If the bill is between $50 and $200, tipPercent 15%.
+                case (billAmount < 200):
+                    tipPercent = .15;
+                    break;
+                // If the bill is more than $200, tipPercent 10%.
+                default:
+                    tipPercent=.1;
+            };
+            console.log('tip %', tipPercent);
+            tip = billAmount * tipPercent;
+            totalAmount = billAmount + tip;
+            totalAmount = totalAmount.toFixed(2);
+            console.log(totalAmount);
+        };
+        calculateTipPercent();
+    </script>
+</body>
+
+</html>
