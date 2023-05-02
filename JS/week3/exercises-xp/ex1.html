@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1 : Users</title>
+</head>
+
+<body>
+    <div id="container">Users:</div>
+    <ul class="list">
+        <li>John</li>
+        <li>Pete</li>
+    </ul>
+    <ul class="list">
+        <li>David</li>
+        <li>Sarah</li>
+        <li>Dan</li>
+    </ul>
+    <script>
+        // Retrieve the div and console.log it
+        let d = document.getElementById("container");
+        console.log(d);
+
+        // Change the name “Pete” to “Richard”.
+        let n = document.querySelector("li:last-child");
+        n.textContent = "Richard";
+        // console.log(document.getElementsByTagName("li"));
+
+        // Delete the <li> that contains the text node “Sarah”. (It’s the second <li> of the second <ul>)
+        let li = document.getElementsByTagName("li")[3];
+        document.getElementsByTagName("ul")[1].removeChild(li);
+        // console.log(document.querySelectorAll("*"));
+
+        // Change each first name of the two <ul>'s to your name. (Hint : use a loop)
+        let ul = document.getElementsByTagName("ul");
+        for (var i of ul) {
+            i.firstElementChild.textContent = "Sanjiv";
+            // Add a class called student_list to both of the <ul>'s.
+            i.classList.add("student-list");
+        };
+
+        //Add the classes university and attendance to the first <ul>.
+        ul[0].classList.add("university", "attendance");
+    </script>
+</body>
+
+</html>

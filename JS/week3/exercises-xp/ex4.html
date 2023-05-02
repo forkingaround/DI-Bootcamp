@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 4 : My Book List</title>
+</head>
+<body>
+    <div class="listBooks"></div>
+    <script>
+        
+        const book1 = {
+            title:"Happy Place",
+            author:"Emily Henry",
+            image:"https://m.media-amazon.com/images/I/41lTTovnxHL._SX329_BO1,204,203,200_.jpg",
+            alreadyRead:false
+        };
+        const book2 = {
+            title:"The Last Lap",
+            author:"Henry Ford",
+            image:"https://m.media-amazon.com/images/I/31+tYWQojCL._SX326_BO1,204,203,200_.jpg",
+            alreadyRead:true
+        }
+        const allBooks = [book1, book2];
+
+        // Using the DOM, render the books inside an HTML table (the HTML table must be added to the <div> created in part 1).
+        let table = document.createElement("table");
+        document.querySelector('div.listBooks').appendChild(table);
+        let body = table.appendChild(document.createElement("tbody"));
+
+        // For each book :
+        // You have to display the book’s title and the book’s author.
+        // Example: HarryPotter written by JKRolling.
+        // The width of the image has to be set to 100px.
+        // If the book is already read. Set the color of the book’s details to red.
+        for (let b of allBooks) {
+            let row  = body.appendChild(document.createElement("tr"));
+
+            // console.log(d, b[d]);
+            let thumbnail = row.appendChild(document.createElement("td"));
+            thumbnail.innerHTML = "<img src='" + b.image + "' style='max-width:100px;'>";
+
+            let title = row.appendChild(document.createElement("td"));
+            title.innerText = b["title"];
+            
+            let author = row.appendChild(document.createElement("td"));
+            author.innerText = b["author"];
+
+            if (b.alreadyRead === true) {
+                for (let t of row.querySelectorAll("td")) {
+                    t.setAttribute("style", "color:red;");
+                }       
+            }
+        }
+
+
+    </script>
+</body>
+</html>
