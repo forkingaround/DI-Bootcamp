@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mad Lib Game</title>
+</head>
+
+<body>
+    <h1>Mad Libs Game</h1>
+    <form id="story-form">
+        <label for="noun">Noun:</label>
+        <input type="text" id="noun" name="noun"><br>
+
+        <label for="adjective">Adjective:</label>
+        <input type="text" id="adjective" name="adjective"><br>
+
+        <label for="verb">Verb:</label>
+        <input type="text" id="verb" name="verb"><br>
+
+        <button type="submit" name="submit">Generate Story</button>
+        <button type="button" name="shuffle" id="shuffle-btn">Shuffle Story</button>
+    </form>
+
+    <div id="story"></div>
+    <script>
+        const stories = [
+            "The [adjective] [noun] [verb] over the [noun].",
+            "I love to [verb] my [noun] every [adjective] morning.",
+            "The [noun] [verb] down the [adjective] street.",
+            "My [adjective] [noun] is always [verb] at me.",
+            "The [noun] [verb] towards the [adjective] [noun]."
+        ];
+        const form = document.getElementById('story-form');
+        const theStory = document.getElementById('story');
+
+        form.elements.shuffle.disabled = true;
+
+        // Choose a random story from the array
+        const getStoryIndex = () => {
+            return index = Math.floor(Math.random() * stories.length);
+        }
+
+        // replaceAll placeholders
+        const createStory = (noun, adjective, verb) => {
+            return stories[getStoryIndex()].replaceAll('[noun]', noun).replaceAll('[adjective]', adjective).replaceAll('[verb]', verb);
+        }
+
+        
+        //submit btn
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // Getting the values from inputs
+            const noun = form.elements.noun.value;
+            const adjective = form.elements.adjective.value;
+            const verb = form.elements.verb.value;
+            if (noun == '' || adjective == '' || verb == '') {
+                alert('fill in all the fields');
+            } else {
+                // Display the story on the page
+                theStory.innerText = createStory(noun, adjective, verb);
+
+                form.elements.noun.readOnly = true;
+                form.elements.adjective.readOnly = true;
+                form.elements.verb.readOnly = true;
+
+                form.elements.submit.disabled = true;
+                form.elements.shuffle.disabled = false;
+            }
+
+        });
+
+        // shuffle btn
+        const shuffleButton = document.getElementById('shuffle-btn');
+        let count = 0;
+        shuffleButton.addEventListener('click', () => {
+            count++;
+            if (count > 3) {
+                location.reload();
+            } else {
+                // Getting the values from inputs
+                const noun = form.elements.noun.value;
+                const adjective = form.elements.adjective.value;
+                const verb = form.elements.verb.value;
+                theStory.innerText = createStory(noun, adjective, verb);
+                if(count === 3) {
+                    shuffleButton.textContent = 'Reset';
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
