@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 : Work With Forms</title>
+</head>
+<body>
+    <form>
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname"><br><br>
+        <input type="submit" value="Submit" id="submit">
+      </form> 
+      <ul class="usersAnswer"></ul>
+
+      <script>
+        // Retrieve the form and console.log it.
+        const form = document.body.firstElementChild;
+        console.log(form);
+
+        // Retrieve the inputs by their id and console.log them.
+        const fname = document.getElementById("fname");
+        const lname = document.getElementById("lname");
+        const btn = document.getElementById("submit");
+        console.log(fname, lname, btn);
+        
+        // Retrieve the inputs by their name attribute and console.log them.
+        /**** SOLUTION ****
+        const fname = document.getElementsByName("fname")[0];
+        const lname = document.getElementsByName("lname")[0];
+        Button does not have name
+        console.log(fname, lname);
+        */
+
+        // When the user submits the form (ie. submit event listener)
+        // use event.preventDefault(), why ?
+        // get the values of the input tags,
+        // make sure that they are not empty,
+        // create an li per input value,
+        // then append them to a the <ul class="usersAnswer"></ul>, below the form.
+        // The output should be :
+        //    <ul class="usersAnswer">
+        //        <li>first name of the user</li>
+        //        <li>last name of the user</li>
+        //    </ul>
+        const ul = document.getElementsByClassName("usersAnswer")[0];
+        // console.log(ul);
+        btn.addEventListener("click",(e)=>{
+            e.preventDefault(); // Stops page from reloading when clicked
+            // console.log("submits");
+            if (fname.value.length != 0 && lname.value.length != 0) {
+                let li1 = document.createElement("li");
+                let li2 = document.createElement("li");
+                li1.textContent = fname.value;
+                li2.textContent = lname.value;
+                ul.appendChild(li1);
+                ul.appendChild(li2);
+            } else {
+                alert("please fill in the fields");
+                fname.style.border = "1px solid red";
+                lname.style.border = "1px solid red";
+            }
+        });
+        
+      </script>
+</body>
+</html>

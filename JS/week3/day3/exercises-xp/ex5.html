@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listeners</title>
+    <style>
+        body { 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #the-button {
+            transition: all 300ms ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <button id="the-button">Click Me!</button>
+    <script>
+        const btn = document.getElementById("the-button");
+        // const styl = getComputedStyle(btn);
+        // console.log(styl.backgroundColor);
+        btn.addEventListener("click",() => {
+            btn.style.backgroundColor = "lightblue";
+            btn.textContent = "Now double-click me!"
+        });
+        btn.addEventListener("mouseover",() => {
+            btn.style.transform = "scale(200%, 200%)";
+        });
+        btn.addEventListener("mouseout",() => {
+            btn.style.transform = "scale(100%, 100%)";
+        });
+        btn.addEventListener("dblclick",() => {
+            btn.style.backgroundColor = "rgb(240, 240, 240)";
+            btn.textContent = "Click Me!"
+        });
+    </script>
+</body>
+</html>
