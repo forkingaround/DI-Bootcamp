@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge : Show Only The Letters</title>
+</head>
+<body>
+    <label for="lettersInput">Enter letters only:</label>
+    <input type="text" id="lettersInput" name="lettersInput" title="Please enter only alphabets" required>
+    <script>
+        const typedText = document.querySelector("#lettersInput");
+        // console.log(typedText);
+        
+        typedText.addEventListener("keyup",(event)=>{
+            let inputValue = event.target.value;
+            // console.log(typeof inputValue);
+            if (/[^a-zA-Z]/g.test(inputValue)) {
+                // removeNonLetters();
+                let str = inputValue.replace(/[^a-zA-Z]/g, '');
+                typedText.value = str;
+            };
+        });
+        
+    </script>
+</body>
+</html>
