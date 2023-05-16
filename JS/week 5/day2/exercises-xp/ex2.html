@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 : Giphy API</title>
+    <style>
+        #render {
+            column-count: 3;
+            gap:2rem;
+        }
+        .tiles {
+            object-fit: cover;
+            width: 100%;
+            padding-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Exercise 2 : Giphy API</h1>
+    <cite>
+        <ol>
+            <li>Using this part of the documention, retrieve 10 gifs about the “sun”. The starting position of the results should be 2. </li>
+            <li>Console.log the Javascript Object</li>
+        </ol>
+    </cite>
+    <div id="render">
+
+    </div>
+    <script type="text/javascript">
+        
+        let query = "q=sun";
+        let rating = "&rating=r";
+        let APIkey = "&api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My";
+        let url = "https://api.giphy.com/v1/gifs/search?"+query+rating+APIkey;
+
+        let hdr = new XMLHttpRequest();
+        hdr.open('GET',url);
+        hdr.responseType = "json";
+        hdr.send();
+
+        hdr.onload = () => {
+            if (hdr.status != 200) {
+                console.error(`ERROR: ${hdr.status} - ${hdr.statusText}`);
+            } else {
+                console.log(hdr.response);
+                let gifArray = hdr.response.data;
+                console.log('gifArray',gifArray);
+                for(let i = 2; i <=11; i++){
+                    console.log(gifArray[i].images.original.url);
+                    createImgEl(gifArray[i].images.original.url);
+                }
+            }
+        };
+        hdr.onerror = () => {
+            console.error('Failed to load')
+        };
+        const createImgEl = (u) => {
+            let i = document.createElement('img');
+            i.setAttribute('src',u);
+            i.classList.add("tiles");
+            let t = document.getElementById('render');
+            t.appendChild(i);
+        }
+    </script>
+</body>
+</html>
