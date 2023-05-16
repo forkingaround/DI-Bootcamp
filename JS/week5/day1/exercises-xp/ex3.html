@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 3 : JSON Mario</title>
+</head>
+<body>
+    <h1>Exercise 3 : JSON Mario</h1>
+    <pre>
+        const marioGame = {
+            detail : "An amazing game!",
+            characters : {
+                mario : {
+                  description:"Small and jumpy. Likes princesses.",
+                  height: 10,
+                  weight: 3,
+                  speed: 12,
+                },
+                bowser : {
+                  description: "Big and green, Hates princesses.",
+                  height: 16,
+                  weight: 6,
+                  speed: 4,
+                },
+                princessPeach : {
+                  description: "Beautiful princess.",
+                  height: 12,
+                  weight: 2,
+                  speed: 2,
+                }
+            },
+          }
+    </pre>
+    <cite>
+        <ol>
+            <li>Convert this JS object into a JSON object. What happens to the nested objects ?
+                <mark>They become attributes of the JSON Object</mark>
+            </li>
+            <li>Convert and pretty print this JS object into a JSON object. Hint : Check out the JSON lesson on the platform.</li>
+            <li>Use your web inspector to add a breakpoint. Check the values of the JSON object in the debugger.</li>
+        </ol>
+    </cite>
+    <script>
+        const marioGame = {
+            detail : "An amazing game!",
+            characters : {
+                mario : {
+                  description:"Small and jumpy. Likes princesses.",
+                  height: 10,
+                  weight: 3,
+                  speed: 12,
+                },
+                bowser : {
+                  description: "Big and green, Hates princesses.",
+                  height: 16,
+                  weight: 6,
+                  speed: 4,
+                },
+                princessPeach : {
+                  description: "Beautiful princess.",
+                  height: 12,
+                  weight: 2,
+                  speed: 2,
+                }
+            }
+        }
+        let parsed = JSON.parse(JSON.stringify(marioGame));
+        function prettyPrintJSON(obj) {
+            return JSON.stringify(obj, null, 2);
+        }
+        console.log(prettyPrintJSON(parsed));
+    </script>
+</body>
+</html>

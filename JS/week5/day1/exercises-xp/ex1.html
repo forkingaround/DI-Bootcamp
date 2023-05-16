@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 1 : HTML Form</title>
+    <style>
+        form>* {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <cite>
+        <h1>Exercise 1 : HTML Form</h1>
+        <ol>
+            <li>
+                Create a form like the one above. The form should contain three inputs:
+                <ul>
+                    <li>a small text input asking for a name,</li>
+                    <li>a larger textarea input to write a message,</li>
+                    <li>a submit input (“Send”)</li>
+                </ul>
+            </li>
+            <li>When you click the Send button, the form will be submitted with a GET method. (you can use the same HTML file for the action url)</li>
+            <li>
+                Where will the sent data appear?
+                <mark>In the URL path of the browser as arguments</mark>
+            </li>
+        </ol>
+    </cite>
+    <form action="ex1.html" method="GET" id="commentForm">
+        <label for="name">Name</label>
+        <input type="text" name="name">
+        <label for="text">Comments</label>
+        <textarea name="comments" id="comments" cols="30" rows="10"></textarea>
+        <button type="submit">Send</button>
+    </form>
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        const name = decodeURIComponent(params.get('name'));
+        const comments = decodeURIComponent(params.get('comments'));
+
+        console.log(name, '\n', comments);
+
+    </script>
+</body>
+
+</html>
