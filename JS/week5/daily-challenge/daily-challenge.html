@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge: Giphy API</title>
+    <style>
+        #render {
+            display:flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .delete {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            -moz-appearance: none;
+            -webkit-appearance: none;
+            background-color: rgba(10,10,10,.2);
+            border: none;
+            border-radius: 9999px;
+            cursor: pointer;
+            pointer-events: auto;
+            display: inline-block;
+            flex-grow: 0;
+            flex-shrink: 0;
+            font-size: 0;
+            height: 20px;
+            max-height: 20px;
+            max-width: 20px;
+            min-height: 20px;
+            min-width: 20px;
+            outline: 0;
+            position: relative;
+            vertical-align: top;
+            width: 20px;
+        }
+        .delete {
+            right: 0.5rem;
+            position: absolute;
+            top: 0.5rem;
+        }
+        .delete::before {
+            height: 2px;
+            width: 50%;
+        }
+        .delete::after {
+            height: 50%;
+            width: 2px;
+        }
+        .delete::after, .delete::before {
+            background-color: #fff;
+            content: "";
+            display: block;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%) rotate(45deg);
+            transform-origin: center center;
+        }
+        .delete:focus, .delete:hover {
+            background-color: rgba(10,10,10,.3);
+        }
+        .imgWrap {
+            position: relative;
+        }
+        form#gifSearch {
+            display:flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        fieldset {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            border:none;
+        }
+        label {
+            padding-right: 0.5rem;
+        }
+        .bg-lightblue {
+            background-color: lightblue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Daily Challenge: Giphy API</h1>
+    <cite>
+        <ol>
+            <li>Use this Giphy API Random documentation. Use this API Key : hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My</li>
+            <li>In the HTML file, add a form, containing an input and a button. This input is used to fetch gif depending on a specific category.</li>
+            <li>In the JS file, create a program to fetch one random gif depending on the search of the user (ie. If the search is “sun”, append on the page one gif with a category of “sun”).</li>
+            <li>The gif should be appended with a DELETE button next to it. Hint : to find the URL of the gif, look for the sub-object named “images” inside the data you receive from the API.</li>
+            <li>Allow the user to delete a specific gif by clicking the DELETE button.</li>
+            <li>Allow the user to remove all of the GIFs by clicking a DELETE ALL button.</li>
+        </ol>
+    </cite>
+
+    <div class="bg-lightblue">
+        <form method="GET" onsubmit="startSearch(event)" id="gifSearch">
+            <fieldset name="searchFields">
+                <label for="tag">Search Gifs</label>
+                <input type="text" name="tag" value="" placeholder="e.g.: clueless">
+                <button type="submit" name="submitButton">Search</button>
+            </fieldset>
+            <fieldset name="actionbar">
+                <button type="button" name="clearall">Clear All</button>
+            </fieldset>
+        </form>
+    </div>
+    <div id="render">
+
+    </div>
+    <script type="text/javascript">
+        const url = "https://api.giphy.com/v1/gifs/random?";
+        const api_key = "api_key=hpvZycW22qCjn5cRM1xtWB8NKq4dQ2My";
+        const rating= "&rating=r";
+        let tag = "&tag=";
+        const startSearch = (e) => {
+            e.preventDefault();
+            console.log('>>entered', gifSearch.tag.value);
+            findRandomImage(tag+gifSearch.tag.value);
+        }
+        const findRandomImage = (seachWord) => {
+            console.log(seachWord);
+            // tag += searchWord;
+            // console.log(tag);
+            const xhd = new XMLHttpRequest();
+            xhd.open('GET',url+api_key+rating+seachWord);
+            xhd.responseType="json";
+            xhd.send();
+
+            xhd.onload = () => {
+                if(xhd.status != 200) {
+                    console.error(`AH SHIT! ${xhd.status}:${xhd.statusText}`);
+                } else {
+                    console.log(xhd.response.data.images.original.url);
+                    let newImage = document.createElement("img");
+                    newImage.classList.add("images");
+                    newImage.setAttribute("src", xhd.response.data.images.original.url);
+                    // add delete button
+                    let wrap = document.createElement("div");
+                    wrap.classList.add("imgWrap");
+                    let deleteBtn = document.createElement("button");
+                    deleteBtn.classList.add("delete");
+                    deleteBtn.addEventListener("click", () => {
+                        // console.log(deleteBtn.parentElement);
+                        deleteBtn.parentElement.remove();
+                    });
+                    wrap.appendChild(deleteBtn);
+                    wrap.appendChild(newImage);
+                    images.appendChild(wrap);
+                }
+            }
+            xhd.onerror = () => {
+                console.warn("connection error");
+            }
+        }
+
+        let resetBtn = gifSearch.clearall;
+        let images = document.getElementById("render");
+        // console.log(resetBtn);
+        resetBtn.addEventListener("click", () => {
+            console.log('reset');
+            if (images.hasChildNodes()) {
+                while (images.firstChild) {
+                    images.removeChild(images.firstChild);
+                }
+            };
+        });
+    </script>
+</body>
+</html>
