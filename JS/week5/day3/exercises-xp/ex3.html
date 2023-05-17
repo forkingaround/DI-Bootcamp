@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 3 : Resolve & Reject</title>
+</head>
+<body>
+    <h1>Exercise 3 : Resolve & Reject</h1>
+    <ol>
+        <li>Use Promise.resolve(value) to create a promise that will resolve itself with a value of 3.</li>
+        <li>Use Promise.reject(error) to create a promise that will reject itself with the string “Boo!”</li>
+    </ol>
+    <script>
+        Promise.resolve(3).then(r => console.log(r));
+        Promise.reject("Boo!").catch(e => console.log(e));
+    </script>
+</body>
+</html>

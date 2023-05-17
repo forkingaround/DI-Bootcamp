@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercise 2 : Promises</title>
+</head>
+
+<body>
+    <h1>Exercise 2 : Promises</h1>
+    <ul>
+        <li>Create a promise that resolves itself in 4 seconds and returns a “success” string.</li>
+        <li>How can you make your promise from part 1 shorter using Promise.resolve() and console.log “success”?
+            <mark>I could reduce the delay for the timeout</mark>
+        </li>
+        <li>Add code to catch errors and console.log ‘Ooops something went wrong’.
+            <mark>How to test that tho?</mark>
+        </li>
+    </ul>
+    <script>
+        const timedFunc = new Promise((resolve,reject) => {
+            const timer = setTimeout(()=>{
+                resolve("success");
+            },4000);
+        })
+        .then(result => console.log(result))
+        .catch(() => console.log('Ooops something went wrong')); //How do i text it ?
+
+    </script>
+</body>
+
+</html>

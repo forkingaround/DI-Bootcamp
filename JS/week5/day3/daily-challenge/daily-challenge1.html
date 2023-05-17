@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge #1</title>
+</head>
+<body>
+    <h1>Daily Challenge #1</h1>
+    <ol>
+        <li>Create two functions. Each function should return a promise.</li>
+        <li>The first function called makeAllCaps(), takes an array of words as an argument
+            <ul>
+                <li>If all the words in the array are strings, resolve the promise. The value of the resolved promise is the array of words uppercased.</li>
+                <li>else, reject the promise with a reason.</li>
+            </ul>
+        </li>
+        <li>The second function called sortWords(), takes an array of words uppercased as an argument
+            <ul>
+                <li>If the array length is bigger than 4, resolve the promise. The value of the resolved promise is the array of words sorted in alphabetical order.</li>
+                <li>else, reject the promise with a reason.</li>
+            </ul>
+        </li>
+    </ol>
+    <script>
+
+        const makeAllCaps = (arr) => {
+            const p = new Promise ((resolve,reject) => {
+                let newArr = [];
+                arr.forEach((val,index,arr) => {
+                    if(typeof val !== "string"){
+                        reject("Not all values are string");
+                    } else {
+                        newArr.push(val.toUpperCase());
+                    }
+                });
+                // console.warn(newArr);
+                resolve(newArr);
+            })
+            .then(r => console.log('makeAllCaps:', r))
+            .catch(e => console.log('makeAllCaps:', e));
+        }
+        const sortWords = (arr) => {
+            const p = new Promise((resolve, reject) => {
+                if (arr.length > 4) {
+                    resolve(arr.sort());
+                } else {
+                    reject(arr);
+                }
+            })
+            .then(r => console.log('sortWords:',r))
+            .catch(e => console.log(`sortWords: Array length incorrect: ${e.length}`))
+        }
+        makeAllCaps(["zanana","pwar","kabri","dizef","latab"]);
+        makeAllCaps(["pom","zoranz",3,{sousou:3}]);
+        sortWords(["zanana","pwar","kabri","dizef","latab"]);
+        sortWords(["zanana","pwar","kabri"]);
+    </script>
+</body>
+</html>
