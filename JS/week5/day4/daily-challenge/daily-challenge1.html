@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge</title>
+</head>
+<body>
+    <h1>1st Challenge</h1>
+    <h2>Instructions</h2>
+    <p>
+        <ul>
+            <li>Use Promise.all</li>
+            <li>This function should accept an array of promises and return an array of resolved values.</li>
+            <li>If any of the promises are rejected, the function should catch them.</li>    
+            <li>Explain in a comment how Promise.all work and why you receive this output.</li>
+        </ul>
+        <strong>Example</strong>
+        <pre>
+            const promise1 = Promise.resolve(3);
+            const promise2 = 42;
+            const promise3 = new Promise((resolve, reject) => {
+                setTimeout(resolve, 3000, 'foo');
+            });
+            // expected output: Array [3, 42, "foo"]
+        </pre>
+    </p>
+    <script>
+        const promise1 = Promise.resolve(3);
+        const promise2 = 42;
+        const promise3 = new Promise((resolve, reject) => {
+            setTimeout(resolve, 3000, 'foo');
+        });
+        const promiseAll = Promise.all([promise1, promise2, promise3])
+            .then(result => console.log(result))
+            .catch(e => console.log(e));
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="cat-select">
+        <select id="joke-type" required>
+            <option name="placeholder" value="" selected disabled>Select a category</option>
+        </select>
+        <button name="btn" type="button">Find Joke</button>
+    </form>
+    <script>
+
+        const getCategory = async () => {
+            return fetch("https://api.chucknorris.io/jokes/categories")
+                .then(response => response.json())
+                .then(catObj => {
+                    // console.log(catObj);
+                    return catObj;
+                })
+                .catch(e => console.error('Oops:', e));
+        };
+        const getJoke = async (cat) => {
+            fetch("https://api.chucknorris.io/jokes/random?category="+cat)
+                .then(response => {
+                    // console.log(response);
+                    if (response.ok && response.status == 200) {
+                        return response.json();
+                    } else {
+                        throw new Error("something wrong");
+                    }
+                })
+                .then(joke => {
+                    // return joke.value;
+                    console.log(joke)
+                    let p = document.createElement("p");
+                    p.textContent = joke.value;
+                    document.body.appendChild(p);
+                })
+                .catch(e => console.log(e));
+        };
+        const populateSelect = async () => {
+            const catArray = await getCategory();
+            console.log(catArray);
+            const sel = document.getElementById("joke-type");
+            let o;
+            catArray.forEach(c => {
+                console.log(c);
+                o = document.createElement("option");
+                o.setAttribute("name", c);
+                o.setAttribute("value", c);
+                o.textContent = c;
+                sel.appendChild(o);
+            });
+            const btn = document.getElementById("cat-select").btn;
+            // console.log(btn);
+            const selectElement = document.querySelector('#joke-type');
+            btn.addEventListener("click", () => {
+                const selectedOption = selectElement.value;
+                // console.log(selectedOption);
+                if (selectedOption == "") {
+                    alert("Pick a category");
+                } else {
+                    getJoke(selectedOption);
+                }
+            });
+        };
+        populateSelect();
+        
+
+    </script>
+</body>
+</html>

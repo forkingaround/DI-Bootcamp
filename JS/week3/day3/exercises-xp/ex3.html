@@ -1,56 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise 3 : Transform The Sentence</title>
-</head>
-
-<body>
-    <p><strong>Hello</strong> I hope you are enjoying <strong>this</strong> class. At the
-        <strong>end</strong> you <strong>will</strong> be great Developers!
-        <strong>Enjoy</strong> the <strong>JavaScript </strong> lessons</p>
-
-    <script>
-    // Declare a global variable named allBoldItems.
-        let allBoldItems;
-
-    // Create a function called getBold_items() that takes no parameter.
-    // This function should collect all the bold items inside the paragraph and 
-    // assign them to the allBoldItems variable.
-        const getBold_items = () => {
-            allBoldItems = document.getElementsByTagName("strong");
-            return allBoldItems;
-        };
-        // getBold_items();
-        // console.log(allBoldItems);
-
-    // Create a function called highlight() that changes the color of all the bold text to blue.
-        const highlight = () => {
-            for (let i of getBold_items()) {
-                i.style.color = "blue";
-            }
+    <html>
+    <head>
+        <title>Exercise 3: Drag & Drop</title>
+        <style>
+        #target {
+          width: 200px;
+          height: 200px;
+          position: relative;
+          background: yellow;
         }
-        // highlight();
-
-    // Create a function called return_normal() that changes the color of all the bold text back to black.
-        const return_normal = () => {
-            for (let i of getBold_items()) {
-                i.style.color = "black";
-            }
+        #box {
+          width: 50px;
+          height: 50px;
+          position: absolute;
+          background-color: red;
         }
-        // return_normal();
+        </style>
+    </head>
+    <body>
+        <div id="target" ondragover="allowDrop(event)" ondrop="dragDrop(event)"></div>
+        <br>
+        <div id="box" draggable="true" ondragstart="dStart(event)"></div>
 
-    // Call the function highlight() on mouseover 
-    // (ie. when the mouse pointer is moved onto the paragraph), and 
-    // the function return_normal() on mouseout (ie. when the mouse pointer is 
-    // moved out of the paragraph).
-        document.getElementsByTagName("p")[0].addEventListener("mouseover", highlight);
-        document.getElementsByTagName("p")[0].addEventListener("mouseout", return_normal);
-        
-    </script>
-</body>
-
-</html>
+        <script>
+          const dStart = (e) => {
+            console.log("target:",  e.target);
+            console.log("id: ",  e.target.id );
+            e.dataTransfer.setData("text", e.target.id);
+          };
+          const allowDrop = (e) => {
+            console.log(e);
+            e.preventDefault();
+          };
+          const dragDrop = (e) => {
+            e.preventDefault();
+            let data = e.dataTransfer.getData("text");
+            console.log("data: ",  data);
+            let box = document.getElementById(data);
+            e.target.appendChild(box);
+          }
+        </script>
+    </body>
+    </html>

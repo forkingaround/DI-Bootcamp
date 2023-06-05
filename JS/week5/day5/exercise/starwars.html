@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars Characters</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"></link>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+        body {
+            margin:0;
+            color: white;
+            font-family: 'VT323', sans-serif;
+        }
+        p {
+            padding:0;
+            margin:0;
+        }
+        .bg {
+            background-image: url("https://images.pexels.com/photos/998641/pexels-photo-998641.jpeg?cs=srgb&dl=pexels-francesco-ungaro-998641.jpg&fm=jpg");
+            background-size: cover;
+            height:100vh;
+            display: flex;
+            align-items: center;
+        }
+        .container {
+            width:75ch;
+            margin:0 auto;
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            border: 4px solid #ffc500;
+            border-radius: 1rem;;
+        }
+        .logo {
+            max-width:300px;
+        }
+        #preloader {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        i {
+            color: white;
+        }
+        /* #content {transition: all 3s ease-out;} */
+        #content h3 {
+            font-size: 3rem;
+            padding: 0;
+            margin: 0 0 0.7rem;
+            text-align: center;
+        }
+        #content p {
+            font-size: 1.5rem;
+            color:#ffc500;
+        }
+        #content p span {
+            color: white;
+        }
+        .hide {
+            display:none !important;
+        }
+        #btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding:0.7rem;
+            width:100%;
+            margin-top:1.2rem;
+            background: none;
+            border: 4px solid #ffc500;
+            border-radius: 0.7rem;
+            color: white;
+            font-family: 'VT323', sans-serif;
+            font-size: 2rem;
+        }
+        #btn:hover {
+            background-color: rgba(255, 255, 255, .1);
+            cursor: pointer;
+        }
+        #btn .spcbr {
+            font-size: small;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg">
+        <div class="container">
+            <img src="https://logolook.net/wp-content/uploads/2021/07/Star-Wars-Logo.png" alt="Star Wars" class="logo">
+            <div id="preloader">
+                <p class="fa-beat-fade">Loading...</p>
+                <div class="fa-1x"><i class="fa-solid fa-circle-notch fa-spin"></i></div>
+            </div>
+            <div id="content" class="hide">
+                <h3 id="name">Luke Skywalker</h3>
+                <p id="desc"></p>
+                <p>height: <span id="height">dfvzd</span></p>
+                <p>gender: <span id="gender">zsdv</span></p>
+                <p>Birth year: <span id="dob">szd</span></p>
+                <p>Home world: <span id="origin">sdv</span></p>
+                <button id="btn">Refresh<span class="spcbr">(spacebar)</span></button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // name, height, gender, birth year, and home world
+        const wrap = document.getElementById("content");
+        const name = wrap.querySelector("#name");
+        // const desc = wrap.querySelector("#desc");
+        const height = wrap.querySelector("#height");
+        const gender = wrap.querySelector("#gender");
+        const dob = wrap.querySelector("#dob");
+        const origin = wrap.querySelector("#origin");
+        const btn = wrap.querySelector("#btn");
+        const preloader = document.getElementById("preloader");
+
+        function getRandomValue(n) {
+            return Math.floor(Math.random() * (n + 1));
+        }
+        const request = fetch("https://www.swapi.tech/api/people")
+            .then(response => response.json())
+            .then(obj => {
+                let charID = getRandomValue(obj.total_records);
+                const p1 = fetch("https://www.swapi.tech/api/people/"+charID)
+                    .then(response => response.json())
+                    .then(obj => {
+                        console.log(obj);
+                        name.textContent = obj.result.properties.name;
+                        // desc.textContent = obj.result.description;
+                        height.textContent = obj.result.properties.height;
+                        gender.textContent = obj.result.properties.gender;
+                        dob.textContent = obj.result.properties.birth_year;
+                        origin.textContent = fetch(obj.result.properties.homeworld).then(p => p.json()).then(o => {
+                            origin.textContent = o.result.properties.name;
+                            preloader.classList.toggle("hide");
+                            wrap.classList.toggle("hide");
+                        });
+                    });
+            })
+            .catch(e => console.error(e));
+
+            document.addEventListener('keydown', function(event) {
+                if (event.keyCode === 32) {
+                    // Spacebar key pressed
+                    console.log('spc');
+                    location.reload();
+                }
+            });
+            btn.addEventListener('click',() => location.reload());
+    </script>
+</body>
+</html>
+<!-- const requests = urls.map(url => fetch(url));
+
+Promise.all(requests)
+  .then(responses => {
+    // Convert the responses to JSON
+    const jsonPromises = responses.map(response => response.json());
+    return Promise.all(jsonPromises);
+  })
+  .then(data => {
+    // Process the data from all the requests
+    console.log(data);
+  })
+  .catch(error => {
+    console.log('Error:', error);
+  }); -->

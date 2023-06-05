@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="form1" onsubmit="getvalue(event)"> 
+        <label>First name: </label><input type="text" name="fname" value="David"><br> 
+        <label>Last name: </label><input type="text" name="lname" value="BenGurion"><br> 
+        <input type="submit" value="Submit"> 
+    </form> 
+
+    <script>
+        let frm = document.getElementById('form1');
+        let fname = document.getElementsByTagName('input')[0];
+        let lname = document.getElementsByTagName('input')[1];
+        let btn = document.getElementsByTagName('input')[2];
+        // console.log(fname, lname, btn);
+        let f;
+        let l;
+        let getvalue = (e) => {
+            e.preventDefault(); //prevents page reload
+            f = fname.value;
+            l = lname.value;
+            console.log(f, l); // console output disappears because page is reloaded after being submitted 
+        }
+    </script>
+</body>
+</html>

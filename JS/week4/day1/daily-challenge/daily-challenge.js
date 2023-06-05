@@ -43,4 +43,3 @@ console.log(winners);
 let totalScore = 0;
 gameInfo.forEach(player => totalScore += player.score);
 console.log("Total Score:", totalScore);
-  

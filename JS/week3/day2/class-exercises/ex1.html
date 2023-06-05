@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table id="sampleTable" border="1">
+        <tr>
+            <td>Row1 cell1</td>
+            <td>Row1 cell2</td>
+        </tr>
+        <tr>
+            <td>Row2 cell1</td>
+            <td>Row2 cell2</td>
+        </tr>
+    </table>
+
+    <input type="button" onclick="insertRow(event)" value="Insert row">
+    <script>
+        let rowCount = 3;
+        let table = document.getElementById("sampleTable");
+        const insertRow = (e) => {
+            console.log(e);
+            let newRow = document.createElement("tr");
+            let td1 = newRow.appendChild(document.createElement("td"));
+            let td2 = newRow.appendChild(document.createElement("td"));
+            td1.textContent = "Row" + rowCount + " cell1";
+            td2.textContent = "Row" + rowCount + " cell2";
+            table.appendChild(newRow);
+            rowCount++;
+        }
+        let btn = document.getElementsByTagName("input")[0];
+        // console.log(btn);
+        const changeColorOnHover = () => {
+            btn.style.backgroundColor = "red";
+            // console.log(btn);
+        }
+        const changeColorBack = () => {
+            btn.style.backgroundColor = "lightgrey";
+        }
+        btn.addEventListener("mouseover", changeColorOnHover);
+        btn.addEventListener("mouseout", changeColorBack);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Challenge</title>
+</head>
+
+<body>
+    <h1>2nd Challenge</h1>
+    <h2>Instructions</h2>
+    <p>
+    <ul>
+        <li>You will find the hour of sunrise of two cities, using the API https://sunrise-sunset.org/api.</li>
+        <li>
+            In the HTML file, create a form with 4 inputs:
+            <ul>
+                <li>the latitude and longitude of the first city</li>
+                <li>the latitude and longitude of the second city</li>
+
+            </ul>
+        </li>
+        <li>Retrieve the input’s value and display the hour of the sunrise for both city ONLY when both promises are
+            resolved
+            <em>Hint : Use Promise.all()</em>
+        </li>
+    </ul>
+    <strong>Try with Paris and New York</strong>
+    <pre>
+        Paris
+        Latitude: 48.864716
+        Longitude: 2.349014
+        
+        New York
+        Latitude: 40.730610
+        Longitude: -73.935242
+    </pre>
+    </p>
+    <section>
+        <form>
+            <label>First City
+                <input type="text" id="lat1">
+                <input type="text" id="lon1">
+            </label>
+            <label>Second City
+                <input type="text" id="lat2">
+                <input type="text" id="lon2">
+            </label>
+            <label>Find Sunrise? <button id="btn">OK</button></label>
+        </form>
+    </section>
+    <script>
+        const retrieveArgs = () => {
+            let city1lat = document.getElementById("lat1").value;
+            let city1lon = document.getElementById("lon1").value;
+            let city2lat = document.getElementById("lat2").value;
+            let city2lon = document.getElementById("lon2").value;
+            return [[city1lat, city1lon], [city2lat, city2lon]];
+        };
+        
+        // https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400
+        const btn = document.getElementById("btn");
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            btn.disabled = true;
+            getSunriseData();
+        });
+
+        const city1Sunrise = document.createElement("h4");
+        const city2Sunrise = document.createElement("h4");
+        document.body.appendChild(city1Sunrise);
+        document.body.appendChild(city2Sunrise);
+
+        const getSunriseData = async () => {
+            const coordsArr = retrieveArgs();
+            const urls = [];
+            coordsArr.forEach(async (arr) => {
+                urls.push("https://api.sunrise-sunset.org/json?"+"lat="+arr[0]+"&lng="+arr[1]);
+            });
+            // console.log(urls);  
+            const requests = urls.map(url => fetch(url));
+
+            Promise.all(requests)
+            .then(responses => {
+                // Convert the responses to JSON
+                const jsonPromises = responses.map(response => response.json());
+                return Promise.all(jsonPromises);
+            })
+            .then(data => {
+                // Process the data from all the requests
+                city1Sunrise.textContent = data[0].results.sunrise;
+                city2Sunrise.textContent = data[1].results.sunrise;
+                btn.disabled = false;
+            })
+            .catch(error => {
+                console.log('Error:', error);
+            });
+        };
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Mini Project - Special To Do List</title>
+    <style>
+        main {
+            max-width: 75ch;
+            margin:0 auto;
+        }
+        input, textarea, label, button {
+            margin-bottom:1rem;
+        }
+        form[name="new_task"] {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <form name="new_task">
+            <div class="field">
+                <label for="name" class="label">Name:</label>
+                <div class="control">
+                    <input type="text" name="name">
+                </div>
+            </div>
+            <div class="field">
+                <label for="desc" class="label">Description:</label>
+                <div class="control">
+                    <textarea type="text" name="desc"></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <label for="sdate" class="label">Start Date:</label>
+                <div class="control">
+                    <input type="datetime-local" name="sdate">
+                </div>
+            </div>
+            <div class="field">
+                <label for="edate" class="label">End Date:</label>
+                <div class="control">
+                    <input type="datetime-local" name="edate">
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button type="button" name="btn" id="submit_btn">Submit</button>
+                </div>
+            </div>
+        </form>
+    </main>
+    <script>
+        const taskArray = [];
+        new_task.submit_btn.addEventListener('click',() => {
+            //JSONObj = 'task';//need to replace this with an array of task names
+            let task = {
+                name: new_task.name.value,
+                desc: new_task.desc.value,
+                sdate: new_task.sdate.value,
+                edate: new_task.edate.value
+            };
+            taskJSON = JSON.stringify(task);
+            localStorage.setItem(taskArray[taskArray.length], taskJSON);
+            window.location.assign('newtask.html');
+        });
+    </script>
+</body>
+</html>

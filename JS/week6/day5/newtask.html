@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <main class="container">
+        <section class="columns">
+        </section>
+    </main>
+    <script>
+        function daysLeft(targetDate) {
+            const today = new Date();
+            targetDate = new Date(targetDate);
+            const difference = targetDate.getTime() - today.getTime();
+            const millisecondsInDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+            const days = Math.ceil(difference / millisecondsInDay);
+            return days;
+        }
+        // retrieve the task from localStorage
+        let tasks = JSON.parse(JSON.stringify(localStorage));
+        for (let key in tasks) {
+            if (tasks.hasOwnProperty(key)) {
+                const task = JSON.parse(tasks[key]);
+                const days = daysLeft(task.edate);
+                const card = document.createElement('div');
+                card.className = 'column';
+                card.innerHTML = `
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-header-title">${task.name}</div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content">
+                                <p>${task.desc}<p>
+                                <p>${days}</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="card-footer-item">Set as completed</a>
+                            <a href="#" class="card-footer-item">Delete</a>
+                        </div>
+                    </div>
+                `;
+                document.querySelector('.columns').appendChild(card);
+            }
+        };
+
+    </script>
+</body>
+</html>

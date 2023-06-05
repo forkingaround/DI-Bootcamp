@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <select id="select1"> 
+        <option value="apple">Middle School</option>
+        <option value="pear">University</option>
+        <option value="banana">College</option>
+    </select>
+
+    <script>
+        console.log(document.getElementsByTagName("option")[1].value);
+        let work = document.createElement("option");
+        work.value = "work";
+        work.textContent = "Work";
+
+        let form = document.getElementById("select1");
+        form.appendChild(work);
+
+        let primary = document.createElement("option");
+        primary.value = "primary school";
+        primary.textContent = "Primary School";
+
+        form.insertBefore(primary, document.getElementsByTagName("option")[0]);
+
+        form.options[3].selected = true;
+        let btn = document.createElement("button");
+        btn.textContent = "validate";
+        btn.addEventListener("click", () => {
+            alert(form.value);
+        });
+
+        document.body.insertBefore(btn, document.getElementsByTagName("script")[0]);
+    </script>
+</body>
+</html>

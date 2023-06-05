@@ -1,70 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercise 2 : Work With Forms</title>
-</head>
-<body>
-    <form>
-        <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname"><br>
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname"><br><br>
-        <input type="submit" value="Submit" id="submit">
-      </form> 
-      <ul class="usersAnswer"></ul>
+    <html>
+    <head>
+        <title>Exercise 2 : Move The Box</title>
+        <style>
+        #container {
+          width: 400px;
+          height: 400px;
+          position: relative;
+          background: yellow;
+        }
+        #animate {
+          width: 50px;
+          height: 50px;
+          position: absolute;
+          background-color: red;
+        }
+        </style>
+    </head>
+    <body>
+        <p><button onclick="myMove()">Click Me</button></p>
+        <div id="container">
+          <div id="animate"></div>
+        </div>
+        <script>
+        // Copy the code above, to a structured HTML file.
+        // In your Javascript file, use setInterval to move the <div id="animate"> 
+        // to the right side of the <div id="container">, when the button is clicked on.
+        // The <div id="animate"> should move 1px to the right every milisecond, 
+        // until it reaches the end of the <div id="container">.
+        // Hint : use clearInterval as soon as the box reaches the right end side of the container
+        // Hint : check out the demonstration in the Course Noted named JS Functions
+        const myMove = () => {
+            // console.log('click');
+            const square = document.getElementById("animate");
+            let lft = 0;
+            let t = setInterval(()=>{
+                square.style.left = lft + "px";
+                lft++;
+                if(lft >= 350) {
+                    clearInterval(t);
+                }
+            },1);
+        }
 
-      <script>
-        // Retrieve the form and console.log it.
-        const form = document.body.firstElementChild;
-        console.log(form);
-
-        // Retrieve the inputs by their id and console.log them.
-        const fname = document.getElementById("fname");
-        const lname = document.getElementById("lname");
-        const btn = document.getElementById("submit");
-        console.log(fname, lname, btn);
-        
-        // Retrieve the inputs by their name attribute and console.log them.
-        /**** SOLUTION ****
-        const fname = document.getElementsByName("fname")[0];
-        const lname = document.getElementsByName("lname")[0];
-        Button does not have name
-        console.log(fname, lname);
-        */
-
-        // When the user submits the form (ie. submit event listener)
-        // use event.preventDefault(), why ?
-        // get the values of the input tags,
-        // make sure that they are not empty,
-        // create an li per input value,
-        // then append them to a the <ul class="usersAnswer"></ul>, below the form.
-        // The output should be :
-        //    <ul class="usersAnswer">
-        //        <li>first name of the user</li>
-        //        <li>last name of the user</li>
-        //    </ul>
-        const ul = document.getElementsByClassName("usersAnswer")[0];
-        // console.log(ul);
-        btn.addEventListener("click",(e)=>{
-            e.preventDefault(); // Stops page from reloading when clicked
-            // console.log("submits");
-            if (fname.value.length != 0 && lname.value.length != 0) {
-                let li1 = document.createElement("li");
-                let li2 = document.createElement("li");
-                li1.textContent = fname.value;
-                li2.textContent = lname.value;
-                ul.appendChild(li1);
-                ul.appendChild(li2);
-            } else {
-                alert("please fill in the fields");
-                fname.style.border = "1px solid red";
-                lname.style.border = "1px solid red";
-            }
-        });
-        
-      </script>
-</body>
-</html>
+        const btn = document.getElementsByTagName("button")[0];
+        btn.addEventListener("click",myMove);
+        </script>
+    </body>
+    </html>
